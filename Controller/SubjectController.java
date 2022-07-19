@@ -2,6 +2,7 @@ package com.example.Example2.Controller;
 
 import com.example.Example2.Service.SubjectService;
 import com.example.Example2.mode.Subject;
+import org.hibernate.criterion.CountProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,16 @@ public class SubjectController {
         Subject u = subjectService.findSubjectBySem(sem,name);
         return new ResponseEntity<Subject>(u,HttpStatus.OK);
     }
+    @RequestMapping(value = "/countnameone" , method = RequestMethod.GET)     //(DONE)
+    public ResponseEntity<Subject> countName(){
+        Long aLong = subjectService.getCountByName();
+        return new ResponseEntity(aLong,HttpStatus.OK);
+    }
+    @RequestMapping(value = "/countsem/{sem}" , method = RequestMethod.GET)     //(DONE)
+    public ResponseEntity<Subject> countSem(@PathVariable("sem")long sem){
+        Long aLong = subjectService.countSubjectBySem(sem);
+        return new ResponseEntity(aLong,HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/Subjectdetall/{id}" , method = RequestMethod.GET)     //(DONE)  GET ID
     public ResponseEntity<Subject> getSubjectByID(@PathVariable("id") long id){
@@ -51,7 +62,6 @@ public class SubjectController {
 
     @RequestMapping(value = "/Subjectdetall/update/{id}", method = RequestMethod.POST)  //(DONE)
     public ResponseEntity<Subject> updateSubject(@PathVariable("id")long id, @RequestBody Subject subject){
-
         Subject oldSubject = subjectService.getOneSubject(id);
         if (oldSubject == null){
             return ResponseEntity.notFound().build();
