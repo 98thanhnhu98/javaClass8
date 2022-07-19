@@ -42,6 +42,16 @@ public class SubjectServiceIML implements SubjectService {
     }
 
     @Override
+    public Long getCountByName() {
+        return repository.getCountByName();
+    }
+
+    @Override
+    public Long countSubjectBySem(long sem) {
+        return repository.countSubjectsBySem(sem);
+    }
+
+    @Override
     public Subject getOneSubject(long id) {
         return repository.findById(id).get();
     }

@@ -14,6 +14,7 @@ public interface SubjectService {
     Optional<Subject> findSubjectById(long id);
     Subject findSubjectByName(String name);
     Subject findSubjectBySem(long sem,String name);
-
+    Long getCountByName();
+    Long countSubjectBySem(long sem);
     Subject getOneSubject(long id);
 }
